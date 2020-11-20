@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Web site created using create-react-app"
+    />
+    <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
+    <title>Weather Forecast</title>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root">
+        <header>
+          <label for="city-name">
+            Enter city
+          </label>
+          <input type="search" id="city-name">
+          <button type="button">
+            Check
+          </button>
+        </header>
+        <main>
+          <h2>Weather in <span id="selected-city"></span></h2>
+          <div class="tabs">
+            <button class="tablinks">Weather now</button>
+            <button class="tablinks">Forecast for 5 days</button>
+          </div>
+          <div>
+            <table>
+                <tr id="sky-row">
+                    <th>Sky:</th>
+                </tr>
+                <tr id="temp-row">
+                    <th>Temperature, C&#176;</th>
+                </tr>
+                <tr id="press-row">
+                    <th>Atmospheric pressure, hPa:</th>
+                </tr>
+                <tr id="hum-row">
+                    <th>Humidity, %:</th>
+                </tr>
+                <tr id="wind-row">
+                    <th>Wind, m/s</th>
+                </tr>
+            </table>
+          </div>
+        </main>
+    </div>
+    <script src="../src/index.js"></script>
+  </body>
+</html>
