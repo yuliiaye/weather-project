@@ -1,0 +1,46 @@
+#root {
+    font-family: 'Mukta', sans-serif;
+}
+
+
+header {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+header > * {
+    /* margin: 10px 5px; */
+    /* width: 200px; */
+}
+
+label {
+    font-size: 22px;
+    font-style: italic;
+}
+
+
+tbody {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    /* align-items: flex-start; */
+}
+
+tr {
+    display: flex;
+    align-items: center;
+}
+
+th {
+    width: 200px;
+}
+
+td {
+    flex-shrink: 1;
+    flex-basis: 300px;
+}
+
+#date {
+    flex-basis: 300px;
+}
