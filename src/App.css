@@ -6,12 +6,11 @@
 header {
     display: flex;
     justify-content: center;
-    padding: 20px;
+    padding: 30px;
 }
 
 header > * {
-    /* margin: 10px 5px; */
-    /* width: 200px; */
+    margin: 2px;
 }
 
 label {
@@ -20,27 +19,21 @@ label {
 }
 
 
-tbody {
+#weather, #forecast {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
-    /* align-items: flex-start; */
+    align-items: baseline;
 }
 
 tr {
     display: flex;
-    align-items: center;
 }
 
 th {
-    width: 200px;
+    width: 150px;
 }
 
 td {
-    flex-shrink: 1;
-    flex-basis: 300px;
+    width: 150px;
 }
 
-#date {
-    flex-basis: 300px;
-}
