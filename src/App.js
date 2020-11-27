@@ -9,21 +9,19 @@ export default class App extends React.Component {
         super(props);
         this.state = {
             inputValue: {
-                value: null,
-                valueOld: null,
+                value: '',
+                valueOld: '',
                 changed: false,
             },
-            weatherData: {
-                time: [],
-                sky: [],
-                temp: [],
-                feelsLike: [],
-                press: [],
-                hum: [],
-                wind: [],
-                isReceivedForDay: false,
-                isReceivedForWeek: false
-            }
+            time: [],
+            sky: [],
+            temp: [],
+            feelsLike: [],
+            press: [],
+            hum: [],
+            wind: [],
+            isReceivedForDay: false,
+            isReceivedForWeek: false
         }
         this.inputRef = React.createRef();
         this.appId = 'd90eae9f9ee313a6fbfc12712b4104ea';
@@ -42,7 +40,7 @@ export default class App extends React.Component {
     }
 
     clear(){
-        let next = this.state.weatherData;
+        let next = this.state;
         next.time.length = 0;
         next.sky.length = 0;
         next.temp.length = 0;
@@ -60,8 +58,8 @@ export default class App extends React.Component {
             .then(res => {
                 console.log(res)
                 this.clear();
-                let next = this.state.weatherData;
-                this.state.inputValue.valueOld = this.state.inputValue.value;
+                let next = this.state;
+                next.inputValue.valueOld = next.inputValue.value;
                 next.isReceivedForDay = true;
                 next.isReceivedForWeek = false;
                 next.time.push(moment().format('MMM Do, h:mm a'));
@@ -71,6 +69,7 @@ export default class App extends React.Component {
                 next.press.push(res.data.main.pressure);
                 next.hum.push(res.data.main.humidity);
                 next.wind.push(res.data.wind.speed);
+                // next.id.push(0);
                 this.setState(next);
             }).catch(err => {
                 alert(`Something went wrong. Could not get weather data in ${this.state.inputValue.value}`)
@@ -82,12 +81,12 @@ export default class App extends React.Component {
     checkForecast(){
         if (this.inputRef.current.value.length === 0){alert('Please enter city')} else {
         console.log(`Forecast for five days in ${this.state.inputValue.value}`)
-        if (this.state.weatherData.isReceivedForWeek === false || this.state.inputValue.value != this.state.inputValue.valueOld) {
+        if (this.state.isReceivedForWeek === false || this.state.inputValue.value !== this.state.inputValue.valueOld) {
         axios.get(`http://api.openweathermap.org/data/2.5/forecast?q=${this.state.inputValue.value}&appid=${this.appId}`)
             .then(res => {
                 console.log(res);
                 this.clear();
-                let next = this.state.weatherData;
+                let next = this.state;
                 next.isReceivedForDay = false;
                 next.isReceivedForWeek = true;
                 for (let i = 0; i <= 39; i++){
@@ -118,12 +117,12 @@ export default class App extends React.Component {
     }
 
     render () {
-        const state = this.state.weatherData;
+        const state = this.state;
         return (
             <div>
             <header>
                 <label htmlFor='cityName'>Enter city: </label>
-                <input id ='cityName' value={this.state.inputValue.value} type='text' pattern='A-Za-z' onKeyPress={this.handleKeyPress} required autoFocus value={this.state.inputValue.value} onChange={this.inputChange} ref={this.inputRef} />
+                <input id ='cityName' value={this.state.inputValue.value} type='text' onKeyPress={this.handleKeyPress} required autoFocus onChange={this.inputChange} ref={this.inputRef} />
                 <button type='button' className="btn btn-light" onClick={this.handleClick}>Search</button>
             </header>
             <main>
@@ -135,31 +134,31 @@ export default class App extends React.Component {
                     <tbody id='weather'>
                         <tr>
                             <th scope="row">Date and time</th>
-                            {state.time.map(time=><td key={time.id}>{time}</td>)}
+                            {state.time.map(time=><td>{time}</td>)}
                         </tr>
                         <tr>
                             <th scope="row">Sky</th>
-                            {state.sky.map(sky=><td key={sky.id}>{sky}</td>)}
+                            {state.sky.map(sky=><td>{sky}</td>)}
                         </tr>
                         <tr>
                             <th scope="row">Temperature</th>
-                            {state.temp.map(temp=><td key={temp.id}>{temp} С&#176;</td>)}
+                            {state.temp.map(temp=><td>{temp} С&#176;</td>)}
                         </tr>
                         <tr>
                             <th scope="row">Feels like</th>
-                            {state.feelsLike.map(feelsLike=><td key={feelsLike.id}>{feelsLike} С&#176;</td>)}
+                            {state.feelsLike.map(feelsLike=><td>{feelsLike} С&#176;</td>)}
                         </tr>
                         <tr>
                             <th scope="row">Atmospheric pressure</th>
-                            {state.press.map(press=><td key={press.id}>{press} hPa</td>)}
+                            {state.press.map(press=><td>{press} hPa</td>)}
                         </tr>
                         <tr>
                             <th scope="row">Humidity</th>
-                            {state.hum.map(hum=><td key={hum.id}>{hum} %</td>)}
+                            {state.hum.map(hum=><td>{hum} %</td>)}
                         </tr>
                         <tr>
                             <th scope="row">Wind</th>
-                            {state.wind.map(wind=><td key={wind.id}>{wind} m/s</td>)}
+                            {state.wind.map(wind=><td>{wind} m/s</td>)}
                         </tr>
                     </tbody>
                 </table>
