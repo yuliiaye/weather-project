@@ -62,7 +62,7 @@ export default class App extends React.Component {
                 let next = this.state.weatherData;
                 next.isReceivedForDay = true;
                 next.isReceivedForWeek = false;
-                next.time.push(moment().format('llll'));
+                next.time.push(moment().format('MMM Do, h:mm a'));
                 next.sky.push(res.data.weather[0].description);
                 next.temp.push(Math.round(res.data.main.temp - 273.15));
                 next.feelsLike.push(Math.round(res.data.main.feels_like - 273.15));
@@ -88,7 +88,7 @@ export default class App extends React.Component {
                 next.isReceivedForDay = false;
                 next.isReceivedForWeek = true;
                 for (let i = 0; i <= 39; i++){
-                    next.time.push(res.data.list[i].dt);
+                    next.time.push(moment.unix(res.data.list[i].dt).format('MMM Do, h:mm a'));
                     next.sky.push(res.data.list[i].weather[0].description);
                     next.temp.push(Math.round(res.data.list[i].main.temp - 273.15));
                     next.feelsLike.push(Math.round(res.data.list[i].main.feels_like - 273.15));
@@ -124,8 +124,10 @@ export default class App extends React.Component {
                 <button type='button' onClick={this.handleClick}>Search</button>
             </header>
             <main>
-                <button type='button' onClick={this.handleClick}>Weather today</button>
-                <button type='button' onClick={this.checkForecast}>Forecast for five days</button>
+                <div id='btn-container'>
+                    <button type='button' id='weather-btn' onClick={this.handleClick}>Weather today</button>
+                    <button type='button' id='forecast-btn' onClick={this.checkForecast}>Forecast for five days</button>
+                </div>
                 <table>
                     <tbody id='weather'>
                         <tr>
