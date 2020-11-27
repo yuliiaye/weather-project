@@ -9,8 +9,8 @@ export default class App extends React.Component {
         super(props);
         this.state = {
             inputValue: {
-                value: '',
-                valueOld: '',
+                value: null,
+                valueOld: null,
                 changed: false,
             },
             weatherData: {
@@ -35,9 +35,9 @@ export default class App extends React.Component {
     }
     
     inputChange(e){
-        let next = this.state;
-        next.inputValue.value = e.target.value;
-        next.inputValue.changed = next.inputValue.value !== next.inputValue.valueOld;
+        let next = this.state.inputValue;
+        next.value = e.target.value;
+        next.changed = next.value !== next.valueOld;
         this.setState(next);
     }
 
@@ -53,13 +53,15 @@ export default class App extends React.Component {
     }
 
     handleClick(){
+        if (this.inputRef.current.value.length === 0){alert('Please enter city')} else {
         console.log(`Weather in ${this.state.inputValue.value}`)
-        if (this.state.weatherData.isReceivedForDay === false) {
+        if (this.state.inputValue.value !== this.state.inputValue.valueOld) {
             axios.get(`http://api.openweathermap.org/data/2.5/weather?q=${this.state.inputValue.value}&appid=${this.appId}`)
             .then(res => {
                 console.log(res)
                 this.clear();
                 let next = this.state.weatherData;
+                this.state.inputValue.valueOld = this.state.inputValue.value;
                 next.isReceivedForDay = true;
                 next.isReceivedForWeek = false;
                 next.time.push(moment().format('MMM Do, h:mm a'));
@@ -74,12 +76,13 @@ export default class App extends React.Component {
                 alert(`Something went wrong. Could not get weather data in ${this.state.inputValue.value}`)
                 console.error(err);
             })
-        } 
+        }}
     }
 
     checkForecast(){
+        if (this.inputRef.current.value.length === 0){alert('Please enter city')} else {
         console.log(`Forecast for five days in ${this.state.inputValue.value}`)
-        if (this.state.weatherData.isReceivedForWeek === false) {
+        if (this.state.weatherData.isReceivedForWeek === false || this.state.inputValue.value != this.state.inputValue.valueOld) {
         axios.get(`http://api.openweathermap.org/data/2.5/forecast?q=${this.state.inputValue.value}&appid=${this.appId}`)
             .then(res => {
                 console.log(res);
@@ -101,7 +104,7 @@ export default class App extends React.Component {
                 alert(`Something went wrong. Could not get forecast data in ${this.state.inputValue.value}`)
                 console.error(err);
             })
-        }
+        }}
     }
 
     handleKeyPress = (e) => {
@@ -120,42 +123,42 @@ export default class App extends React.Component {
             <div>
             <header>
                 <label htmlFor='cityName'>Enter city: </label>
-                <input id ='cityName' type='text' pattern='A-Za-z' onKeyPress={this.handleKeyPress} required autoFocus value={this.state.inputValue.value} onChange={this.inputChange} ref={this.inputRef} />
-                <button type='button' onClick={this.handleClick}>Search</button>
+                <input id ='cityName' value={this.state.inputValue.value} type='text' pattern='A-Za-z' onKeyPress={this.handleKeyPress} required autoFocus value={this.state.inputValue.value} onChange={this.inputChange} ref={this.inputRef} />
+                <button type='button' className="btn btn-light" onClick={this.handleClick}>Search</button>
             </header>
             <main>
                 <div id='btn-container'>
-                    <button type='button' id='weather-btn' onClick={this.handleClick}>Weather today</button>
-                    <button type='button' id='forecast-btn' onClick={this.checkForecast}>Forecast for five days</button>
+                    <button type='button' className='btn btn-outline-secondary' id='weather-btn' onClick={this.handleClick}>Weather today</button>
+                    <button type='button' className='btn btn-outline-success' id='forecast-btn' onClick={this.checkForecast}>Forecast for five days</button>
                 </div>
-                <table>
+                <table className="table">
                     <tbody id='weather'>
                         <tr>
-                            <th>Date and time</th>
+                            <th scope="row">Date and time</th>
                             {state.time.map(time=><td key={time.id}>{time}</td>)}
                         </tr>
                         <tr>
-                            <th>Sky</th>
+                            <th scope="row">Sky</th>
                             {state.sky.map(sky=><td key={sky.id}>{sky}</td>)}
                         </tr>
                         <tr>
-                            <th>Temperature</th>
+                            <th scope="row">Temperature</th>
                             {state.temp.map(temp=><td key={temp.id}>{temp} С&#176;</td>)}
                         </tr>
                         <tr>
-                            <th>Feels like</th>
+                            <th scope="row">Feels like</th>
                             {state.feelsLike.map(feelsLike=><td key={feelsLike.id}>{feelsLike} С&#176;</td>)}
                         </tr>
                         <tr>
-                            <th>Atmospheric pressure</th>
+                            <th scope="row">Atmospheric pressure</th>
                             {state.press.map(press=><td key={press.id}>{press} hPa</td>)}
                         </tr>
                         <tr>
-                            <th>Humidity</th>
+                            <th scope="row">Humidity</th>
                             {state.hum.map(hum=><td key={hum.id}>{hum} %</td>)}
                         </tr>
                         <tr>
-                            <th>Wind</th>
+                            <th scope="row">Wind</th>
                             {state.wind.map(wind=><td key={wind.id}>{wind} m/s</td>)}
                         </tr>
                     </tbody>
