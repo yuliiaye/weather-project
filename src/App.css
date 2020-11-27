@@ -11,11 +11,25 @@ header {
 
 header > * {
     margin: 2px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 label {
     font-size: 22px;
-    font-style: italic;
+    /* font-style: italic; */
+}
+
+.btn-light {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#cityName:focus {
+    outline-color: rgb(128, 193, 128);
 }
 
 
@@ -25,10 +39,6 @@ label {
     align-items: baseline;
 }
 
-table {
-    /* border: 1px solid black */
-}
-
 tr {
     display: flex;
     line-height: 25px;
@@ -36,7 +46,6 @@ tr {
 
 th {
     width: 200px;
-    border: ;
 }
 
 td {

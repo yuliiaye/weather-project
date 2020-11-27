@@ -24,7 +24,7 @@ export default class App extends React.Component {
             isReceivedForWeek: false
         }
         this.inputRef = React.createRef();
-        this.appId = '';
+        this.appId = 'd90eae9f9ee313a6fbfc12712b4104ea';
         this.inputChange = this.inputChange.bind(this);
         this.clear = this.clear.bind(this);
         this.handleClick = this.handleClick.bind(this);
@@ -53,7 +53,7 @@ export default class App extends React.Component {
     handleClick(){
         if (this.inputRef.current.value.length === 0){alert('Please enter city')} else {
         console.log(`Weather in ${this.state.inputValue.value}`)
-        if (this.state.inputValue.value !== this.state.inputValue.valueOld) {
+        if (this.state.isReceivedForDay === false || this.state.inputValue.value !== this.state.inputValue.valueOld) {
             axios.get(`http://api.openweathermap.org/data/2.5/weather?q=${this.state.inputValue.value}&appid=${this.appId}`)
             .then(res => {
                 console.log(res)
@@ -69,7 +69,6 @@ export default class App extends React.Component {
                 next.press.push(res.data.main.pressure);
                 next.hum.push(res.data.main.humidity);
                 next.wind.push(res.data.wind.speed);
-                // next.id.push(0);
                 this.setState(next);
             }).catch(err => {
                 alert(`Something went wrong. Could not get weather data in ${this.state.inputValue.value}`)
