@@ -24,7 +24,7 @@ export default class App extends React.Component {
             isReceivedForWeek: false
         }
         this.inputRef = React.createRef();
-        this.appId = 'd90eae9f9ee313a6fbfc12712b4104ea';
+        this.appId = '';
         this.inputChange = this.inputChange.bind(this);
         this.clear = this.clear.bind(this);
         this.handleClick = this.handleClick.bind(this);
