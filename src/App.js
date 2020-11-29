@@ -131,15 +131,15 @@ export default class App extends React.Component {
                 </div>
                 <table className="table">
                     <tbody id='weather'>
-                        <tr>
-                            <th scope="row">Date and time</th>
-                            {state.time.map(time=><td>{time}</td>)}
+                        <tr class="table-success">
+                            <th scope="col">Date and time</th>
+                            {state.time.map(time=><th id='time' scope="col">{time}</th>)}
                         </tr>
                         <tr>
                             <th scope="row">Sky</th>
                             {state.sky.map(sky=><td>{sky}</td>)}
                         </tr>
-                        <tr>
+                        <tr class="table-success">
                             <th scope="row">Temperature</th>
                             {state.temp.map(temp=><td>{temp} С&#176;</td>)}
                         </tr>
@@ -147,7 +147,7 @@ export default class App extends React.Component {
                             <th scope="row">Feels like</th>
                             {state.feelsLike.map(feelsLike=><td>{feelsLike} С&#176;</td>)}
                         </tr>
-                        <tr>
+                        <tr class="table-success">
                             <th scope="row">Atmospheric pressure</th>
                             {state.press.map(press=><td>{press} hPa</td>)}
                         </tr>
@@ -155,7 +155,7 @@ export default class App extends React.Component {
                             <th scope="row">Humidity</th>
                             {state.hum.map(hum=><td>{hum} %</td>)}
                         </tr>
-                        <tr>
+                        <tr class="table-success">
                             <th scope="row">Wind</th>
                             {state.wind.map(wind=><td>{wind} m/s</td>)}
                         </tr>

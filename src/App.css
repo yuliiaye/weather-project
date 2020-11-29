@@ -39,17 +39,29 @@ label {
     align-items: baseline;
 }
 
+main {
+    /* display: none; */
+}
+
+table {
+    margin: 10px;
+    overflow: scroll;
+    width: 980px;
+}
+
 tr {
     display: flex;
-    line-height: 25px;
+    line-height: 35px;
 }
 
-th {
+th:first-child {
     width: 200px;
+    text-align: center;
+    font-size: 18px;
 }
 
-td {
-    width: 140px;
+td, #time {
+    width: 170px;
     text-align: center;
 }
 
